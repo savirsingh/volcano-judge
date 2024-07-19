@@ -422,7 +422,7 @@ def edit_profile2():
 @app.route("/edit-profile-admin/submit", methods=["GET", "POST"])
 @login_required
 def edit_profile_admin2():
-    if current_user.username=="admin"
+    if current_user.username=="admin":
         username = org = request.form['in3']
         user=User.query.filter_by(username=username).first()
         org = request.form['in1']
