@@ -257,53 +257,57 @@ def register():
     password = request.form["password"]
     org = request.form["org"]
     existing_user = User.query.filter_by(email=email).first()
-    existing_user_ = unverified.query.filter_by(email=email).first()
+    #existing_user_ = unverified.query.filter_by(email=email).first()
+    existing_user_ = None
     existing_user1 = User.query.filter_by(username=username).first()
-    existing_user_1 = unverified.query.filter_by(username=username).first()
+    #existing_user_1 = unverified.query.filter_by(username=username).first()
+    existing_user_1 = None
     if existing_user is None and existing_user_ is None:
         if existing_user1 is None and existing_user_1 is None:
-            the_code=random.randint(100000, 999999)
-            user=unverified(email=email, username=username, org=org, password=password, code=the_code)
+            # the_code=random.randint(100000, 999999) # for email verification
+            user=User(email=email, username=username, org=org, password=password)
+            user.set_password(password)
+            user.isverified=1
             if not (user.username).isalnum() or len(user.org)>64:
                 return redirect(request.referrer)
             else:
-                text = f"""\
-                Hello {user.username},
-                Someone used this email address to sign up for Volcano Judge.
-                Use this code to finish signup: {the_code}
-                If you didn't try to sign up for Volcano Judge, disregard this message.
-                """
-                html = f"""\
-                <html>
-                  <body style="color: #626266; background-color: #d1d5eb; font-family: Cambria; font-size: 16px">
-                    <p>Hello {user.username},<br>
-                       Someone used this email address to sign up for Volcano Judge.<br>
-                       <b style="padding: 8px; font-size: 20px">Use this code to finish signup: {the_code}</b><br>
-                       If you didn't try to sign up for Volcano Judge, disregard this message.<br><br>
-                       <img src="https://raw.githubusercontent.com/volcanojudge/online-judge/main/static/favicon-3.png" alt="Volcano Judge"><br><br>
-                       - Volcano Judge Staff<br>
-                       <small>Do not reply to this email; if you have a question for staff, please email volcanojudge@gmail.com.</small>
-                    </p>
-                  </body>
-                </html>
-                """
-                sender_email = "business_email@domain.com"
-                receiver_email = user.email
-                password = "email_password"
-                message = MIMEMultipart("alternative")
-                message["Subject"] = "Finish signing up for Volcano Judge!"
-                message["From"] = sender_email
-                message["To"] = receiver_email
-                part1 = MIMEText(text, "plain")
-                part2 = MIMEText(html, "html")
-                message.attach(part1)
-                message.attach(part2)
-                context = ssl.create_default_context()
-                with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-                    server.login(sender_email, password)
-                    server.sendmail(
-                        sender_email, receiver_email, message.as_string()
-                )
+                # text = f"""\
+                # Hello {user.username},
+                # Someone used this email address to sign up for Volcano Judge.
+                # Use this code to finish signup: {the_code}
+                # If you didn't try to sign up for Volcano Judge, disregard this message.
+                # """
+                # html = f"""\
+                # <html>
+                #   <body style="color: #626266; background-color: #d1d5eb; font-family: Cambria; font-size: 16px">
+                #     <p>Hello {user.username},<br>
+                #        Someone used this email address to sign up for Volcano Judge.<br>
+                #        <b style="padding: 8px; font-size: 20px">Use this code to finish signup: {the_code}</b><br>
+                #        If you didn't try to sign up for Volcano Judge, disregard this message.<br><br>
+                #        <img src="https://raw.githubusercontent.com/volcanojudge/online-judge/main/static/favicon-3.png" alt="Volcano Judge"><br><br>
+                #        - Volcano Judge Staff<br>
+                #        <small>Do not reply to this email; if you have a question for staff, please email volcanojudge@gmail.com.</small>
+                #     </p>
+                #   </body>
+                # </html>
+                # """
+                # sender_email = "business_email@domain.com"
+                # receiver_email = user.email
+                # password = "email_password"
+                # message = MIMEMultipart("alternative")
+                # message["Subject"] = "Finish signing up for Volcano Judge!"
+                # message["From"] = sender_email
+                # message["To"] = receiver_email
+                # part1 = MIMEText(text, "plain")
+                # part2 = MIMEText(html, "html")
+                # message.attach(part1)
+                # message.attach(part2)
+                # context = ssl.create_default_context()
+                # with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                #     server.login(sender_email, password)
+                #     server.sendmail(
+                #         sender_email, receiver_email, message.as_string()
+                # )
                 db.session.add(user)
                 db.session.commit()
                 return redirect("/signup/finish")
