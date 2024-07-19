@@ -39,4 +39,16 @@ Note that I built this judge as a learning project and it is not necessarily sec
 ### Problem Statement Visible While Writing Code, &amp; Syntax Highlighting + Autocompletion
 ![image](https://github.com/user-attachments/assets/73314ca2-a8c2-426c-a553-c29a0fc5eca4)
 
+### Enable Dark Mode for Late-Night Competitive Programming Sessions
+![image](https://github.com/user-attachments/assets/5a08515f-6855-4849-9f28-9f0462886aba)
+
+### User Rankings by Total Points
+![image](https://github.com/user-attachments/assets/642e6bdc-f452-4687-93fb-31ea63a1d2d1)
+
+### Interact With Others in the Comments
+![image](https://github.com/user-attachments/assets/057a88d6-4592-4401-841d-5c6dda945c6c)
+
+### Rich Problem Statements With Support for Latex &amp; HTML
+![image](https://github.com/user-attachments/assets/f4d61b84-65d2-4ae0-af84-7094a6ce34e1)
+
 
