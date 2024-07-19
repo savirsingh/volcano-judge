@@ -13,6 +13,7 @@ Note that I built this judge as a learning project and it is not necessarily sec
 * Easy-to-understand grading:
   * Simple & instantaneous feedback when users submit their code.
   * Enable custom checking & feedback on problems (e.g. a character limit on submissions for code golf style problems).
+  * View all feedback codes at https://volcanojudge.pythonanywhere.com/about
 * Minimalistic Design:
   * Volcano Judge features a simple **Bootstrap-powered** design.
 * Email Verification:
