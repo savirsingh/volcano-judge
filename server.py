@@ -1293,7 +1293,7 @@ def submit_page_cpp_send(code):
     if expected_out[-1:] != '\n':
         expected_out += '\n'
     # Create a temporary directory for running the code
-    temp_dir = '/home/volcanojudge/mysite/code/'
+    temp_dir = '/home/volcanojudge/mysite/code/' # This is for Pythonanywhere. Just change this to /code (or whatever path you wish to isolate the C++ code to)
 
     # Write the C++ code to a file in the temporary directory
     cpp_file = os.path.join(temp_dir, current_user.username + '.cpp')
