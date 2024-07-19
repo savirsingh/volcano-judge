@@ -8,7 +8,7 @@ Note that I built this judge as a learning project and it is not necessarily sec
 ## Features
 * Support for Python and C++:
   * Python is sandboxed and available by default for all problems.
-  * C++ is not sandboxed/secure. It is available by default for contests and **Volcano Judge can compile & run C++ programs**, however, enabling C++ will make the system vulnerable to attacks.
+  * C++ is not sandboxed/secure. It is available by default for contests and **Volcano Judge can compile & run C++ programs**, however, enabling C++ will make the system vulnerable to attacks (note that the C++ code will be isolated from the main directory when running, and safety measures have been enabled to reduce the risk of vulnerabilities).
   * Authors can add custom time limits to all problems, and Volcano Judge will kill processes after the limit is exceeded.
 * Easy-to-understand grading:
   * Simple & instantaneous feedback when users submit their code.
@@ -51,4 +51,15 @@ Note that I built this judge as a learning project and it is not necessarily sec
 ### Rich Problem Statements With Support for Latex &amp; HTML
 ![image](https://github.com/user-attachments/assets/f4d61b84-65d2-4ae0-af84-7094a6ce34e1)
 
+### Easy-to-use Admin Interface for Uploading Problems, Publishing Announcements, and Hosting Contests
+![image](https://github.com/user-attachments/assets/3ba774d4-43a0-456f-aef0-9740ffe54b51)
 
+## Usage
+Volcano Judge features support for grading solutions in Python 3 and C++. These languages should be installed on the machine being used as the server and the grader will make use of version installed.
+
+### Installation
+After cloning this repository, run
+```
+python server.py
+```
+Now, visit http://127.0.0.1:5000. Your clone of Volcano Judge will be running there.
