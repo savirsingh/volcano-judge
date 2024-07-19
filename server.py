@@ -1410,11 +1410,8 @@ def edit_contest_submit(code):
         db.session.commit()
         return "Successful"
 
-
-with db.engine.begin() as conn:
-    conn.execute("VACUUM")
-
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 # Remove the below section if hosting on Pythonanywhere/similar service. This is for local runs.
 if __name__ == '__main__':
