@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Volcano Judge - Publish Contest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: Garamond, serif;
+  margin-left: 12px;
+}
+a {
+  color: black;
+}
+
+form {
+  width: 200px;
+}
+</style>
+</head>
+
+<body>
+<a href="/"><img src="/static/logo.png" width="200px"></a>
+
+<div style="position: fixed; margin-left: 12px">
+<a target="_blank" href="/user/{{current_user.username}}"><h2>Welcome, {{current_user.username}}.</h2></a>
+<h3>Publish a public contest.</h3>
+<span>Volcano Judge &copy 2022 volcano.</span>
+</div>
+
+<form style="position: absolute; margin-left: 400px; float:" action="/p-cont" method="POST">
+<h1>Publish Contest</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="title" placeholder="Contest Title" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="code" placeholder="Contest Code" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="organizers" placeholder="Organizer(s)" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="tl" placeholder="Time Allowed (mins)" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="rat" placeholder="Rated?" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="end" placeholder="Ends on?" required><br><br>
+<input style="width: 320px; font-size: 32px" type="number" name="pcount" placeholder="Problem Count?" required><br><br>
+<textarea name="body" required>About Contest</textarea>
+<h1>Problem #1:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p1l" placeholder="Problem Link" required><br><br>
+<h1>Problem #2:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p2l" placeholder="Problem Link" required><br><br>
+<h1>Problem #3:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p3l" placeholder="Problem Link" required><br><br>
+<h1>Problem #4:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p4l" placeholder="Problem Link" required><br><br>
+<h1>Problem #5:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p5l" placeholder="Problem Link" required><br><br>
+<input style="width: 320px; font-size: 32px; background-color: white" type="submit" value="Publish Contest"><br><br>
+</form>
+
+</body></html>

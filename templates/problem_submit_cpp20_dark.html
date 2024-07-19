@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Submit to {{title}} | Volcano Judge</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/static/favicon.ico">
+    <link href="/static/offcanvas.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<style type="text/css" media="screen">
+    #editor {
+        position: fixed;
+        right: 0;
+        margin-top: 32px;
+    }
+</style>
+</head>
+<body class="bg-dark">
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/{{current_user.username}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+{% if current_user.darkmode==0 %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Light Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Dark Mode</a></li>
+          </ul>
+{% else %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dark Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Light Mode</a></li>
+          </ul>
+{% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "80%" } } },
+      messageStyle: "none"
+    });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+
+<div style="margin-left: 24px; position: absolute; margin-top: 32px">
+    <h2 style="color: white">{{title}}</h2>
+    {% autoescape false %}
+    <p style="width: 50%; color: white">{{body}}<br><br><b>Sample Input</b>
+<br><br><code style="background-color: #dcdfe3; display: block">{{samplein}}</code><br>
+<b>Sample Output</b><br><br><code style="background-color: #dcdfe3; display: block">{{sampleout}}</code><br>
+<b>Sample Explanation</b><br><br>{{sampleex}}</p>
+    {% endautoescape %}
+    </div>
+
+<div class="editor" style="height: 50%; width: 48%" id="editor">// volcano will make CCO
+</div>
+
+<script src="https://ajaxorg.github.io/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajaxorg.github.io/ace-builds/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/solarized_dark");
+    editor.session.setMode("ace/mode/c_cpp");
+    ace.require("ace/ext/language_tools");
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true
+    });
+    editor.resize()
+    editor.container.style.lineHeight = 2
+    editor.renderer.updateFontSize()
+    editor.setOptions({
+  fontSize: "16pt"
+});
+var editor = ace.edit('editor');
+var textarea = $('textarea[name="program"]');
+editor.getSession().on("change", function () {
+    textarea.val(editor.getSession().getValue());
+});
+
+$('#myform').submit(function() {
+    var editor = ace.edit('editor');
+    var textarea = $('textarea[name="program"]');
+    textarea.val(editor.getSession().getValue());
+    return true; // return false to cancel form action
+});
+
+</script>
+
+<script>
+function getCode() {
+    var editor = ace.edit('editor');
+  var code = editor.getValue();
+  console.log(code)
+  document.getElementById('myTextarea').value = code;
+  document.getElementById("myForm").submit();
+}
+</script>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></b><button onclick="getCode()" type="submit" style="width: 48%; right: 0; position: fixed; display: block" class="btn btn-primary">Submit Solution</button>
+<form id="myForm" action="/problem/{{code}}/submit/cpp20/result" method="POST">
+    <textarea style="display: none;" name="program" id="myTextarea"></textarea>
+</form>
+
+</body>
+</html>

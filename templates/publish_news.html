@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Volcano Judge - Publish News</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: Garamond, serif;
+  margin-left: 12px;
+}
+a {
+  color: black;
+}
+
+form {
+  width: 200px;
+}
+</style>
+</head>
+
+<body>
+<a href="/"><img src="/static/logo.png" width="200px"></a>
+
+<div style="position: fixed; margin-left: 12px">
+<a target="_blank" href="/user/{{current_user.username}}"><h2>Welcome, {{current_user.username}}.</h2></a>
+<h3>Publish some news.</h3>
+<span>Volcano Judge &copy 2022 volcano.</span>
+</div>
+
+<form style="position: absolute; margin-left: 400px; float:" action="/p-news" method="POST">
+<h1>Publish Problem</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="title" placeholder="Announcement Title" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="authors" placeholder="Author(s)" required><br><br>
+<textarea style="width: 320px; height: 300px" name="body" required>News Body</textarea>
+<input style="width: 320px; font-size: 32px; background-color: white" type="submit" value="Publish News"><br><br>
+</form>
+
+</body></html>

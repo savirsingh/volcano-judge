@@ -1,0 +1,231 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}} | Programming Contest | Volcano Judge</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+{% if current_user.darkmode==0 %}
+  <body class="bg-light">
+{% endif %}
+
+{% if current_user.darkmode==1 %}
+  <body class="bg-dark">
+{% endif %}
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/{{current_user.username}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+{% if current_user.darkmode==0 %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Light Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Dark Mode</a></li>
+          </ul>
+{% else %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dark Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Light Mode</a></li>
+          </ul>
+{% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link active" aria-current="page" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+
+<main class="container">
+
+{% autoescape false %}
+{% if current_user.darkmode==0 or current_user.is_authenticated == False %}
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+{% else %}
+  <div style="color: white" class="my-3 p-3 bg-dark rounded shadow-sm">
+{% endif %}
+{% if timeup %}
+<p style="color:#d40d0d"><b>Your time is up!</b> You may still try the problems, and will get awarded points for correct solutions, but your contest score will no longer update.<br>Your performance (which may be used for calculating your new rating) has also been sent to the judge.</p>
+{% endif %}
+    <h2 class="border-bottom pb-2 mb-0">{{title}}</h2> {% if current_user.username=="volcano" %} <a href="/contest/{{code}}/close">Close Contest</a> {% endif %}<br>
+    <b>Time Allowed: {{time_allowed}} minutes</b><br>
+    <b>Contest Code: {{code}}</b><br>
+    <b>Published: {{date}}</b><br>
+    <b>Ends on: {{contest.end_date}}{% if current_user.username == "volcano" or current_user.username == "contestbot" %} (<a href="/contest/{{code}}/edit">change</a>){% endif %}</b><br>
+{% if " " in organizers %}
+    <b>Organizers: {{organizers}}</b><br><br>
+{% else %}
+    <b>Organizer: {{organizers}}</b><br><br>
+{% endif %}
+{% if rated=="No" %}
+<b style="color: #ed283c">This contest is not rated.</b><br><br>
+{% endif %} {% if rated=="Yes" %}
+<b style="color: #4cba6a">This contest is rated.</b><br><br>
+{% endif %}
+{% if current_user.username not in registered %}
+    <a href="/contest/{{code}}/register">Register for contest</a><br><br>
+        <p id="timeleft"></p>
+<script>
+var countDownDate = new Date("{{contest.end_date}}").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("timeleft").innerHTML ="Time left to register: " + days + " days, " + hours + " hours, "
+  + minutes + " minutes, " + seconds + " seconds ";
+
+  // If the count down is over, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("timeleft").innerHTML = "Contest Over";
+  }
+}, 0);
+</script>
+{% endif %}
+<a href="/contest/{{code}}/scoreboard" target="_blank"><h4>View Scoreboard</h4></a>
+{% if current_user.username in registered %}
+    <p id="timeleft"></p>
+<script>
+var countDownDate = new Date("{{endtime_}}").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("timeleft").innerHTML ="Your time ends in: " + hours + " hours, "
+  + minutes + " minutes, " + seconds + " seconds " + "(EST)<br>" + "Your contest window ends at " + "{{endtime_}}".split(".")[0] + " in EST time.";
+
+  // If the count down is over, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("timeleft").innerHTML = "Time Up (in EST).<br>Your contest window ends/ended at " + "{{endtime_}}".split(".")[0] + " in EST time.";
+  }
+}, 0);
+</script>
+<h3>Contest Problems:</h3>
+{% if contest.p1!="None" %}
+<a href="{{contest.p1}}" target="_blank"><h4>Problem #1</h4></a>
+{% endif %}
+{% if contest.p2!="None" %}
+<a href="{{contest.p2}}" target="_blank"><h4>Problem #2</h4></a>
+{% endif %}
+{% if contest.p3!="None" %}
+<a href="{{contest.p3}}" target="_blank"><h4>Problem #3</h4></a>
+{% endif %}
+{% if contest.p4!="None" %}
+<a href="{{contest.p4}}" target="_blank"><h4>Problem #4</h4></a>
+{% endif %}
+{% if contest.p5!="None" %}
+<a href="{{contest.p5}}" target="_blank"><h4>Problem #5</h4></a>
+{% endif %}
+{% endif %}
+<hr>
+<p>
+        <b><u>Welcome to this Volcano Judge contest! Be sure to read through our <a href="/contest-rules">Contest Rules</a> and follow them during the contest, or you'll be banned. Please also read the organizer's message below. Note that some contests may be available after the <i>Ends on</i> date, but it is guaranteed that they will no longer be rated and the scoreboard will stop updating permanently. Generally, problems will be available after the contest on <a href="/problems">the problems page</a>.</u></b><br><br>{{contest.about}}<br><br>
+<i>To save our servers for people interested in this contest, only {{left}} more users may register.</i><br><br><b>Volcano Judge thanks {{organizers}} for organizing this contest. All contest material was provided to Volcano Judge under the <a href="/basalt-license">Basalt Exclusive License</a>.</b></p>
+    </div>
+{% endautoescape %}
+
+  </div>
+  </div>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

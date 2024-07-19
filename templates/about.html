@@ -1,0 +1,155 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About | Volcano Judge</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+{% if current_user.darkmode==0 %}
+  <body class="bg-light">
+{% endif %}
+
+{% if current_user.darkmode==1 %}
+  <body class="bg-dark">
+{% endif %}
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/{{current_user.username}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+{% if current_user.darkmode==0 %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Light Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Dark Mode</a></li>
+          </ul>
+{% else %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dark Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Light Mode</a></li>
+          </ul>
+{% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link active" aria-current="page" href="/about">About</a>
+  </nav>
+</div>
+
+<main class="container">
+
+{% if current_user.darkmode==0 or not current_user.is_authenticated %}
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+{% else %}
+  <div style="color: white" class="my-3 p-3 bg-dark rounded shadow-sm">
+{% endif %}
+<h3>About Volcano Judge</h3>
+<p>
+    Volcano Judge is a competitive programming judge which hosts programming problems and contests. Our rich UI was specifically designed to enrich your learning and problem-solving experience.<br><br>
+    <b>Where did we get our name from?</b><br><b><a href="/user/volcano" style="text-decoration: none; color:{{User.query.filter_by(username='volcano').first().colour}}">volcano</a></b> programmed this judge.<br><br><hr>
+    <b>How do I change the colour of my username?</b><br>Write a <a href="/contests">contest</a>! You will become rated and your username's colour will depend on your performance:<br>
+    <ul>
+    <li><b style="color: #525252">[unrated]</b> - no contests written yet!</li>
+    <li><b style="color: #99a199">[beginner]</b> - top 100% of programmers.</li>
+    <li><b style="color: #95f59d">[good]</b> - top 70% of programmers.</li>
+    <li><b style="color: #738cde">[expert]</b> - top 30% of programmers.</li>
+    <li><b style="color: #f7c728">[ruler]</b> - top 15% of programmers.</li>
+    <li><b style="color: #fc5347">[crazy]</b> - top 5% of programmers.</li>
+    <li><b style="color: #800000">[god]</b> - top 1% of programmers.</li>
+    </ul>
+    Of course, these are only approximations.<br><br>
+    <b>How can an organization host a contest?</b><br>
+    Organizations may contact volcanojudge@gmail.com and request to host a private contest for as little as $80. We also charge $300 to set up a public contest for organizations.<br><br>
+    <b>What are the judge verdicts?</b><br>
+    There are 5 judge verdicts used to explain what happened during compilation of your code:<br>
+    <ul>
+        <li><b style="color: #42f548">All Correct</b><br>
+        Your code outputted the correct answer exactly and you received points.</li>
+        <li><b style="color: #e02828">Wrong Answer</b><br>
+        Your code outputted the wrong answer (or outputted nothing). The important thing to note here is that your code <i>doesn't</i> contain errors which will prevent it from compiling.</li>
+        <li><b style="color: #eb9534">Invalid Return</b><br>
+        Your code either couldn't compile or there was an error during the runtime. The keyword here is <i>error</i>. Your code is not correct and didn't run properly.</li>
+        <li><b style="color: #8f8b8b">Program Timeout</b><br>
+        Each problem has a specific <i>time limit</i>. If your code doesn't <i>stop running</i> by that time limit, it will be killed by the judge and this verdict is produced. Your program is too slow.</li>
+        <li><b style="color: #42f548">All Correct (but time up!)</b><br>
+        This verdict is an alternative to the <i>All Correct</i> verdict. You will only get this verdict when writing a contest. This verdict means your code passed but your time has surpassed the time allowed for the contest.</li>
+    </ul><br>
+    <b>What are some of the contests hosted on Volcano Judge?</b><br>
+    We have between 10 and 20 programming contests hosted on Volcano Judge every year, and you can use either Python or C++ in these contests. These include OlyCCServer contests, national and provincial olympiads, and some of our own contests! Register for them as soon as they pop up!
+    You are also welcome to host your own contest! Create some <a href="https://volcanojudge.github.io/p_link">p_links</a> and email them to volcanojudge@gmail.com.<br><br>
+    <b>Is the Volcano Judge open-source?</b><br>
+    While the current version of the Volcano Judge is not open-source, you can access an older version of the judge <b>for educational purposes</b> at <a href="https://github.com/volcanojudge/online-judge">the GitHub repository</a>. Please note that this older version may contain several security issues and/or bugs. It is only available for educational purposes so that you can learn more about Volcano Judge and online code compilation in general!
+    <br>Learn more about why we made it open-source in <a href="https://volcanojudge.github.io/blog/open-source">this official post</a>.
+</p>
+    </div>
+  </div>
+  </div>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

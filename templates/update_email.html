@@ -1,0 +1,94 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Email to Keep Using Volcano Judge</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+<br><br><br>
+<main class="container">
+<form action="/update-email/result" method="POST">
+<h2>We need your actual email address.</h2>
+<h6>Please update it here so we can verify it. This is the only chance you'll get, so make sure it's real.</h6>
+<p>You have <b>48 hours from registration date</b> to verify your email address.</p>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+    <small id="emailHelp" class="form-text text-muted">An actual email address we can contact you on.</small>
+  </div><br>
+  <button type="submit" class="btn btn-primary">Update My Email Address</button><br><br>
+</form><br><br>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

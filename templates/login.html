@@ -1,0 +1,103 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Volcano Judge - Login</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+<br><br><br>
+<main class="container">
+<form action="/login" method="POST">
+<h2>Login and solve.</h2>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+  </div>
+<a href="/">Register Instead</a><br><br>
+  <button type="submit" class="btn btn-primary">Log in</button>
+</form><br><br>
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+    <img class="me-3" src="/static/statistics.png" alt="" width="48" height="38">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">Volcano Judge Statistics</h1>
+      <small>{{problemcount}} problems available, {{contestcount}} contests running.</small>
+    </div>
+  </div>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}} | Programming Contest | Volcano Judge</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+{% if current_user.darkmode==0 %}
+  <body class="bg-light">
+{% endif %}
+
+{% if current_user.darkmode==1 %}
+  <body class="bg-dark">
+{% endif %}
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/{{current_user.username}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+{% if current_user.darkmode==0 %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Light Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Dark Mode</a></li>
+          </ul>
+{% else %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dark Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Light Mode</a></li>
+          </ul>
+{% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link active" aria-current="page" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+
+<main class="container">
+
+{% autoescape false %}
+{% if current_user.darkmode==0 %}
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+{% else %}
+  <div style="color: white" class="my-3 p-3 bg-dark rounded shadow-sm">
+{% endif %}
+    <h2 class="border-bottom pb-2 mb-0">{{title}} {% if code in current_user.completedproblems.split() %} <span style="color: #20e842">(Solved)</span> {% endif %}</h2><br>
+<p>You are registering for the <b>{{title}}</b>. Since only {{left}} more people can register, we want to save the number of spots for those genuinely interested in the contest. Therefore, we ask for you to carefully review the contest information below, to verify that you really want to take part in this contest.</p>
+<h6>Important! Review the following information before proceeding:</h6>
+    <b>Time Allowed: {{time_allowed}} minutes</b><br>
+    <b>Contest Code: {{code}}</b><br>
+    <b>Published: {{date}}</b><br>
+    <b>Ends on: {{contest.end_date}}</b><br>
+{% if " " in organizers %}
+    <b>Organizers: {{organizers}}</b><br><br>
+{% else %}
+    <b>Organizer: {{organizers}}</b><br><br>
+{% endif %}
+{% if rated=="No" %}
+<b style="color: #ed283c">This contest is not rated.</b><br><br>
+{% endif %} {% if rated=="Yes" %}
+<b style="color: #4cba6a">This contest is rated.</b><br><br>
+{% endif %}
+<hr>
+<p>
+        <b><u>Once you have reviewed all the contest information carefully, please read and agree to the following rules and terms to register and participate in the {{title}}.</u></b></p>
+<form action="/contest/{{code}}/register/submit">
+<input class="form-check-input" id="c-rules" type="checkbox" required>
+<label class="form-check-label" for="c-rules">I have read and will follow the <a href="/contest-rules">Contest Rules</a> at all times.</label><br>
+<input class="form-check-input" id="terms" type="checkbox" required>
+<label class="form-check-label" for="terms">I understand that I may be unrated by the Contest Manager if I don't follow contest rules.</label><br><br>
+<input class="btn btn-primary" type="submit" value="Register for Contest & Start Timer">
+
+    </div>
+{% endautoescape %}
+  </div>
+  </div>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Volcano Judge - Competitive Programming Contests & Problems</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL9MQZRR9K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JL9MQZRR9K');
+</script>
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link active" aria-current="page" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+<br><br><br>
+<script>
+   function onSubmit(token) {
+     document.getElementById("reg-form").submit();
+   }
+ </script>
+<main class="container">
+<form onsubmit="return submitForm();" id="reg-form" action="/signup" method="POST">
+<h2>Register to join our community.</h2>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username" required>
+    <small id="usernameHelp" class="form-text text-muted">You'll use your username to log in.</small>
+  </div>
+  <div class="form-group">
+    <label for="org">Organization</label>
+    <input name="org" type="text" class="form-control" id="org" aria-describedby="orgHelp" placeholder="Enter organization" required>
+    <small id="orgHelp" class="form-text text-muted">Your organization can host private contests and problems.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+    <small id="passHelp" class="form-text text-muted">Please keep your password private.</small>
+  </div>
+  <div class="g-recaptcha" data-sitekey="6LekfRwjAAAAAF6TQAelki1MmY88jJ6nAc7OhwFj" data-callback="verifyCaptcha"></div>
+  <div id="g-recaptcha-error"></div>
+<a href="/login_page">Login Instead</a><br><br>
+  <button type="submit" class="btn btn-primary">Register</button>
+  <p>Your username must be less than 17 characters long and must not contain special characters.</p>
+</form><br>
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+    <img class="me-3" src="/static/statistics.png" alt="" width="48" height="38">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">Volcano Judge Statistics</h1>
+      <small>{{problemcount}} problems available, {{contestcount}} contests running.</small>
+    </div>
+  </div>
+</main>
+
+        <script>
+        function submitForm() {
+        var response = grecaptcha.getResponse();
+        console.log(response.length);
+        if (response.length == 0) {
+            document.getElementById('g-recaptcha-error').innerHTML = '<span style="font-family: Segoe UI; color: red">Please solve the captcha to sign up.</span>';
+            return false;
+        }
+        return true;
+        }
+
+        function verifyCaptcha() {
+            console.log('verified');
+            document.getElementById('g-recaptcha-error').innerHTML = '';
+        }
+        </script>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

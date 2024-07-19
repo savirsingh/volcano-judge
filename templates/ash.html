@@ -1,0 +1,135 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ash Subscription | Volcano Judge</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+{% if current_user.darkmode==0 %}
+  <body class="bg-light">
+{% endif %}
+
+{% if current_user.darkmode==1 %}
+  <body class="bg-dark">
+{% endif %}
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/{{current_user.username}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+{% if current_user.darkmode==0 %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Light Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Dark Mode</a></li>
+          </ul>
+{% else %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dark Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Light Mode</a></li>
+          </ul>
+{% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link" href="/">Dashboard</a>
+    <a class="nav-link" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+
+<main class="container">
+
+{% if current_user.darkmode==0 or not current_user.is_authenticated %}
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+{% else %}
+  <div style="color: white" class="my-3 p-3 bg-dark rounded shadow-sm">
+{% endif %}
+<h3>Volcano Judge Ash Subscription</h3>
+<p><br>
+    <b>Features</b><br>With the paid Ash subscription, users have the following advantages:
+    <ul>
+        <li>A unique Ash badge on your profile.</li>
+        <li>View private problems, and view non-contest problems during a contest.</li>
+        <li>Create a custom feature-rich bio with support for HTML, CSS, and Markdown.</li>
+        <li>Access C++ for general use, not just for contests. (Available with Ash+)</li>
+        <li>Access languages and features prior to official release. (Available with Ash+)</li>
+        <li>Create problems without review needed. (Available with Ash+)</li>
+    </ul><br>
+    <b>Pricing</b><br>Here's the pricing for Ash:
+    <ul>
+        <li>Common Ash: $3.99/month</li>
+        <li>Ash+: $9.99/month</li>
+    </ul>
+    Every week, volcano runs a lottery (thanks volcano!). Email volcanojudge@gmail.com every Monday to enter the lottery. The winner receives two weeks of Common Ash for free. Common Ash is also available for winners in some contests and through some giveaways on Discord and the site.
+</p>
+    </div>
+  </div>
+  </div>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

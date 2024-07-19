@@ -1,0 +1,180 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}} | Programming Problem | Volcano Judge</title>
+    <link rel="icon" href="/static/favicon.ico">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+     .unhelpful-comment:hover {
+    opacity: 1 !important;
+}
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="/static/offcanvas.css" rel="stylesheet">
+  </head>
+{% if current_user.darkmode==0 %}
+  <body class="bg-light">
+{% endif %}
+
+{% if current_user.darkmode==1 %}
+  <body class="bg-dark">
+{% endif %}
+
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.1/es5/tex-chtml.js"></script>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">volcano judge</a>
+    <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/{{current_user.username}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+{% if current_user.darkmode==0 %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Light Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Dark Mode</a></li>
+          </ul>
+{% else %}
+          <a class="nav-link dropdown-toggle" style="cursor: pointer" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dark Mode</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="/dark-mode">Light Mode</a></li>
+          </ul>
+{% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-scroller bg-body shadow-sm">
+  <nav class="nav nav-underline" aria-label="Secondary navigation">
+    <a class="nav-link" href="/">Dashboard</a>
+    <a class="nav-link active" aria-current="page" href="/problems">
+      Problems
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{problemcount}}</span>
+    </a>
+    <a class="nav-link" href="/contests">
+      Contests
+      <span class="badge bg-light text-dark rounded-pill align-text-bottom">{{contestcount}}</span>
+    </a>
+    <a class="nav-link" href="/rankings">Users</a>
+    <a class="nav-link" href="/feedback">Feedback</a>
+    <a class="nav-link" href="/contact">Contact</a>
+    <a class="nav-link" href="/about">About</a>
+  </nav>
+</div>
+
+<main class="container">
+
+{% if current_user.username=="volcano" or current_user.username=="contestbot" %}
+<a href="/problem/{{problem.code}}/edit">Edit Problem</a>
+{% endif %}
+
+{% autoescape false %}
+{% if current_user.darkmode==0 %}
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+{% else %}
+  <div style="color: white" class="my-3 p-3 bg-dark rounded shadow-sm">
+{% endif %}
+    <h2 class="border-bottom pb-2 mb-0">{{title}} {% if code in current_user.completedproblems.split() %} <span style="color: #20e842">(Solved)</span> {% endif %}</h2><br>
+    <b>Time Limit: {{timelimit}} seconds</b><br>
+    <b>Problem Code: {{code}}</b><br>
+    <b>Point Value: {{points}}</b><br>
+{% if " " in authors %}
+    <b>Authors: {{authors}}</b><br><br>
+{% else %}
+    <b>Author: {{authors}}</b><br><br>
+{% endif %}
+    <a href="/problem/{{code}}/submit">Submit a solution</a><hr>
+<p style="font-size: 14px">
+        {{body}}<br><br><b style="font-size: 16px">Sample Input</b>
+<br><br><code style="font-size: 16px; background-color: #dcdfe3; display: block;border-radius: 5px; padding: 10px;;">{{samplein}}</code><br>
+<b style="font-size: 16px">Sample Output</b><br><br><code style="font-size: 16px; background-color: #dcdfe3; display: block;border-radius: 5px; padding: 10px;;">{{sampleout}}</code><br>
+<b style="font-size: 16px">Sample Explanation</b><br><br>{{sampleex}}</p>
+{% endautoescape %}
+{% if problem.contestfor=="None" %}
+<br><p><b>Comments</b></p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+</svg> Write a comment</p>
+<form action="/comment/{{code}}" method="POST">
+<textarea class="form-control" rows="4" name="body" required></textarea><br>
+<input class="btn btn-primary" type="submit" value="Comment">
+</form><br><br>
+{% for comment in comm %}
+{% if comment.votes<-4 %}
+<h5 style="color: red; opacity: 0.6">This comment is hidden as it may be inappropriate or unhelpful. Hover over the comment to see it.</h5>
+<div class="unhelpful-comment" style="opacity:0.06">
+{% endif %}
+<div {% if current_user.darkmode==0 %} style="border:1px solid black; padding: 8px" {% else %} style="border:1px solid white; padding: 8px" {% endif %}>
+    <div style="float: right; position: relative"><h3><a href="/comment/{{comment.id}}/downvote">-</a> {{comment.votes}} <a href="/comment/{{comment.id}}/upvote">+</a></h3></div>
+<b><a href="/user/{{comment.username}}" style="text-decoration: none; font-size: 16px; color: {{User.query.filter_by(username=comment.username).first().colour}}">{{comment.author}}</a></b> {% if current_user.username=="volcano" %} | <a href="/comment/{{comment.id}}/delete">Delete</a> {% endif %}<br>
+<small>commented on {{comment.date.date()}}</small><br>
+<p>{{comment.body}}</p>
+{% if comment.votes<-4 %}
+</div>
+    {% endif %}
+</div>
+<br>
+{% endfor %}
+{% endif %}
+    </div>
+    </div>
+
+  </div>
+  </div>
+</main>
+
+
+    <script src="/static/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+      <script src="/static/offcanvas.js"></script>
+  </body>
+</html>

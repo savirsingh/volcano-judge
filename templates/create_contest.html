@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Volcano Judge - Competitive Programming Contests & Problems</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: Garamond, serif;
+  margin-left: 12px;
+}
+a {
+  color: black;
+}
+
+form {
+  width: 200px;
+}
+</style>
+</head>
+
+<body>
+<a href="/"><img src="/static/logo.png" width="200px"></a>
+
+<div style="position: fixed; margin-left: 12px">
+<a target="_blank" href="/user/{{current_user.username}}"><h2>Welcome, {{current_user.username}}.</h2></a>
+<h3>Through this page, you can create<br>your own contest to be reviewed<br>by admins.</h3>
+<span>Note that this contest <b>must not</b><br>contain sponsored material.</span><br><br>
+<span>You may also host a sponsored contest.<span><br>
+<span><a href="mailto:volcanojudge@gmail.com">Contact us</a> for details.<span><br><br>
+<span>Volcano Judge &copy 2022 volcano.</span>
+</div>
+
+<form style="position: absolute; margin-left: 400px; float:" action="/send-contest" method="POST">
+<small><b>RECOMMENDED: </b><a href="https://docs.google.com/document/d/1sZWQYlM-NCXsIaJKr0ztLR9Qrv37CfoV3bcfl52hVwk" target="_blank">Volcano Judge Contest-Setting Tutorial</a></small>
+<h1>Public Contest Request</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="title" placeholder="Contest Title" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="organizers" placeholder="Organizer(s)" required><br><br>
+<input style="width: 320px; font-size: 32px" type="text" name="tl" placeholder="Time Allowed (mins)" required><br><br>
+<h3>In the following section, you are required to use <a href="https://volcanojudge.github.io/p_link" target="_blank">VJ's p_link service</a>. If you need help with this, check out this <a href="volcanojudge.github.io/docs/p_link" target="_blank">documentation</a>,
+ seek help on <a href="https://discord.gg/jqMhTgmXc2" target="_blank">Discord</a>, or <a href="mailto:volcanojudge@gmail.com">contact us</a>.</h3>
+<h1>Problem #1:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p1l" placeholder="Add p_link (or N/A)" required><br><br>
+<h1>Problem #2:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p2l" placeholder="Add p_link (or N/A)" required><br><br>
+<h1>Problem #3:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p3l" placeholder="Add p_link (or N/A)" required><br><br>
+<h1>Problem #4:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p4l" placeholder="Add p_link (or N/A)" required><br><br>
+<h1>Problem #5:</h1>
+<input style="width: 320px; font-size: 32px" type="text" name="p5l" placeholder="Add p_link (or N/A)" required><br><br>
+<input style="width: 320px; font-size: 32px; background-color: white" type="submit" value="Request Publication"><br><br>
+</form>
+
+</body></html>
