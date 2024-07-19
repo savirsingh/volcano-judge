@@ -17,12 +17,11 @@ builtins_whitelist = set((
  '__import__', 'abs', 'all', 'any', 'apply', 'bin', 'bool', 'buffer', 'callable', 'chr', 'classmethod', 'cmp', 'coerce',
  'compile', 'delattr', 'dir', 'divmod', 'enumerate', 'filter', 'format', 'hasattr', 'hash', 'hex', 'id',
  'isinstance', 'issubclass', 'iter', 'len', 'locals', 'map', 'max', 'min', 'next', 'oct', 'ord', 'pow', 'print', 'property',
- 'range', 'reduce', 'repr', 'reversed', 'round', 'setattr', 'slice', 'sorted', 'staticmethod', 'sum', 'super', 'type', 'unichr', 'xrange', 'zip',
- ))
+ 'range', 'reduce', 'input', 'globals', 'repr', 'reversed', 'round', 'setattr', 'slice', 'sorted', 'staticmethod', 'sum', 'super', 'type', 'unichr', 'xrange', 'zip', 'getattr', 'len', 'sort'))
 
 module_whitelist = set((
  # exceptions
- 'random', 'collections', 'itertools', 'bisect',
+ 'itertools', 'sys', 'math'
  ))
 
 def _safe_import(__import__, module_whitelist):
@@ -57,7 +56,7 @@ class Sandbox(object):
         for builtin in list(original_builtins):
             if builtin not in builtins_whitelist:
                 del sys.modules["__main__"].__dict__["__builtins__"].__dict__[builtin]
-        original_builtins["__import__"] = _safe_import(__import__, ["string", "re"])
+        original_builtins["__import__"] = _safe_import(__import__, module_whitelist)
         safe_builtins = ReadOnlyBuiltins(original_builtins)
         sys.modules["__main__"].__dict__["__builtins__"] = safe_builtins
         type_dict = dictionary_of(type)
@@ -66,3 +65,4 @@ class Sandbox(object):
         function_dict = dictionary_of(FunctionType)
         def execute(self, code_string):
             exec(code_string)
+
