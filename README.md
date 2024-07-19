@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/d64cabb2-2bfc-400b-862b-11faebce55a8)
+
 # Volcano Judge
 ### A minimalistic &amp; user-friendly competitive programming online judge.
 
@@ -64,3 +66,6 @@ After cloning this repository, run
 python server.py
 ```
 Now, visit http://127.0.0.1:5000. Your clone of Volcano Judge will be running there.
+
+## Contact
+Direct any questions you have about Volcano Judge to savirsinghwork@gmail.com.
