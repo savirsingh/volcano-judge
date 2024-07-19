@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/d64cabb2-2bfc-400b-862b-11faebce55a8)
+<img src="https://github.com/user-attachments/assets/d64cabb2-2bfc-400b-862b-11faebce55a8" alt="Volcano Judge logo" width="200"/>
 
 # Volcano Judge
 ### A minimalistic &amp; user-friendly competitive programming online judge.
