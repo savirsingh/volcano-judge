@@ -308,9 +308,10 @@ def register():
                 #     server.sendmail(
                 #         sender_email, receiver_email, message.as_string()
                 # )
+                login_user(user)
                 db.session.add(user)
                 db.session.commit()
-                return redirect("/signup/finish")
+                return redirect("/")
         else:
             return redirect(request.referrer)
     else:
